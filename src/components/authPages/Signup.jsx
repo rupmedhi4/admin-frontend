@@ -48,7 +48,7 @@ export default function Signup() {
         })
         navigate("/");
       } else {
-        alert("Error creating user");
+      alert("Internal server error please try again")
       }
     } catch (error) {
       console.error(error);

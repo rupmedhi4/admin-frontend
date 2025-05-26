@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../slices/authSlice';
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+    const { loading } = useSelector((state) => state.auth)
+
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -15,15 +21,28 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const loginData = {
-      email: formData.email,
-      password: formData.password,
-    };
+    try {
+      const loginData = {
+        email: formData.email,
+        password: formData.password,
+      };
+  
+      const res = await dispatch(loginUser(loginData))
+      if(res.type === "auth/loginUser/fulfilled"){
+        alert("Login successful")
+        navigate("/")
+      }else{
+        alert("Invalid credentials")
+      }
+      
+    } catch (error) {
+      console.error(error);
+      alert("Internal server error please try again")
 
-    // yahan par aap API call kar sakte ho
-    console.log("Logging in:", loginData);
+      
+    }
   };
 
   return (
@@ -73,8 +92,9 @@ export default function Login() {
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition-all duration-300"
+            disable={loading}
           >
-            Login
+            {loading ? "logging in...": "Login"}
           </button>
         </form>
 
