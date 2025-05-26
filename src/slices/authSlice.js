@@ -1,6 +1,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { apiAgent } from '../apiAgent';
 
 
 export const signupUser = createAsyncThunk(
@@ -8,7 +9,7 @@ export const signupUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/auth/user/signup`,
+        `${apiAgent.signup}`,
         {
           name: userData.name,
           email: userData.email,
@@ -35,7 +36,7 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:4000/auth/user/login", {
+      const res = await axios.post(`${apiAgent.login}`, {
         email: userData.email,
         password: userData.password,
       }, {
