@@ -1,37 +1,14 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getOrderDetails } from '../../slices/productsSlice';
+import React from 'react';
 
-export default function Dashboard() {
-const dispatch = useDispatch()
-const {totalOrderedProducts}= useSelector(state=>state.product)
+const summaryData = [
+  { label: "Total Orders", value: "2.5K", growth: "+4.8%", color: "bg-pink-200" },
+  { label: "Revenue", value: "$5,782", growth: "+2.3%", color: "bg-blue-200" },
+  { label: "Sales", value: "385", growth: "+1.8%", color: "bg-teal-200" },
+  { label: "Customers", value: "1,192", growth: "+0.8%", color: "bg-indigo-200" },
+  { label: "Date", value: "3.123", growth: "+0.78%", color: "bg-green-200" },
+];
 
-
-  useEffect(() => {
-    const fetchOrderedItems = async () => {
-      try {
-        await dispatch(getOrderDetails());
-      } catch (err) {
-        console.error('Error fetching order details:', err);
-      }
-    };
-    fetchOrderedItems();
-  }, []); 
-
-  const pendingOrders = totalOrderedProducts.filter((item)=>item.status==="pending")
-  const deliveredOrders = totalOrderedProducts.filter((item)=>item.status==="delivered")
-  console.log(totalOrderedProducts);
-  
-
-
-  const summaryData = [
-    { label: "Total Orders", quantity: `${totalOrderedProducts.length}`, color: "bg-pink-200" },
-    { label: "Pending Orders", quantity: `${pendingOrders.length}`, color: "bg-blue-200" },
-    { label: "delivered Orders", quantity: `${deliveredOrders.length}`, color: "bg-teal-200" },
-    { label: "Total Products", quantity: "1,192", color: "bg-indigo-200" },
-  ];
-
-  const recentOrders = [
+const recentOrders = [
   { id: "01 127.972", customer: "Joe Smith", amount: "$2.59", status: "Completed", date: "Apr. 28" },
   { id: "01236495", customer: "Peter Lenz", amount: "$16.00", status: "Pending", date: "Apr. 17" },
   { id: "01234553", customer: "Andy Lee", amount: "$25.50", status: "Canceled", date: "Apr. 21" },
@@ -46,6 +23,7 @@ const statusColors = {
   Parced: "bg-blue-100 text-blue-700",
 };
 
+export default function Demoo() {
   return (
     <div className="p-6 bg-gray-100 min-h-screen font-sans w-full">
       <h1 className="text-2xl font-bold mb-6">Welcome to Dashboard</h1>
@@ -55,7 +33,7 @@ const statusColors = {
           <div key={index} className={`${item.color} text-center p-4 rounded-lg shadow-md`}>
             <p className="text-sm text-gray-600">{item.label}</p>
             <div className="flex items-center justify-between mt-2">
-              <span className="text-xl mx-auto font-bold">{item.quantity}</span>
+              <span className="text-xl mx-auto font-bold">{item.value}</span>
             </div>
           </div>
         ))}
@@ -94,5 +72,5 @@ const statusColors = {
         </div>
       </div>
     </div>
-  )
+  );
 }

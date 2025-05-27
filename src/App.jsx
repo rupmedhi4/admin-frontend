@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './routesHandler/routes';
+import Cookies from 'js-cookie';
+
 
 function App() {
+ 
+  
   return (
     <Router>
       <Routes>

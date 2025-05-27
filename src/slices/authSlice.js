@@ -40,7 +40,7 @@ export const loginUser = createAsyncThunk(
         email: userData.email,
         password: userData.password,
       }, {
-        withCredential: true
+        withCredentials: true
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -50,6 +50,8 @@ export const loginUser = createAsyncThunk(
       console.log(res.data);
       return res.data
     } catch (error) {
+      console.log(error);
+      
       return rejectWithValue(err)
     }
   }

@@ -38,7 +38,6 @@ export default function Login() {
       }
       
     } catch (error) {
-      console.error(error);
       alert("Internal server error please try again")
 
       

@@ -14,13 +14,6 @@ export default function TopBar() {
                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-
-
-
-                    {/* Profile Avatar */}
-                    {/* <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white">
-                        <span className="text-sm">👤</span>
-                    </div> */}
                 <Avatar/>
             </div>
 

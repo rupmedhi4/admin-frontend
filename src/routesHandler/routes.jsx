@@ -4,14 +4,15 @@ import Login from '../components/authPages/Login';
 import Signup from '../components/authPages/Signup';
 import Home from '../components/home/Home'
 import PublicRoute from './PublicRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 const routes = [
   {
     path: "/",
     element: (
-      <PublicRoute>
+      <ProtectedRoute>
        <Home/>
-      </PublicRoute>
+      </ProtectedRoute>
     )
   },
   {
