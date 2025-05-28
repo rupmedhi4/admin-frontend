@@ -51,8 +51,25 @@ export const loginUser = createAsyncThunk(
       return res.data
     } catch (error) {
       console.log(error);
-      
       return rejectWithValue(err)
+    }
+  }
+)
+
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+     const res = await axios.post(
+        `${apiAgent.logout}`, 
+        {}, // empty body
+        { withCredentials: true }
+      )
+      console.log(res)
+      
+      return res 
+    } catch (error) {
+      return rejectWithValue(error)
     }
   }
 )
@@ -97,8 +114,21 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state) => {
         state.loading = false,
           state.isLogin = true
-  })
-      .addCase(loginUser.rejected, (state) => {
+      })
+      .addCase(loginUser.rejected, (state,action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      //Logout
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.loading = false,
+        state.isLogin = false
+      })
+      .addCase(logoutUser.rejected, (state,action) => {
         state.loading = false;
         state.error = action.payload;
       })

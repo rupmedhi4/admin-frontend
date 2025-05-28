@@ -3,6 +3,8 @@ const base_url = "http://localhost:4000";
 export const apiAgent = {
   signup: `${base_url}/auth/user/signup`,
   login: `${base_url}/auth/user/login`,
+  logout : `${base_url}/auth/user/logout`,
   createProduct : `${base_url}/product/create`,
-  getOrderedProducts : `${base_url}/client/order/get`
+  getOrderedProducts : `${base_url}/client/order/get`,
+
 };

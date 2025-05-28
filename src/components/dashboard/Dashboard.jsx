@@ -20,9 +20,6 @@ const {totalOrderedProducts}= useSelector(state=>state.product)
 
   const pendingOrders = totalOrderedProducts.filter((item)=>item.status==="pending")
   const deliveredOrders = totalOrderedProducts.filter((item)=>item.status==="delivered")
-  console.log(totalOrderedProducts);
-  
-
 
   const summaryData = [
     { label: "Total Orders", quantity: `${totalOrderedProducts.length}`, color: "bg-pink-200" },

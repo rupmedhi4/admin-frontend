@@ -31,14 +31,6 @@ const routes = [
       </PublicRoute>
     )
   },
-  {
-    path: "/admin/create-product",
-    element: (
-      <PublicRoute>
-        <Signup />
-      </PublicRoute>
-    )
-  },
 ];
 
 export default routes;
