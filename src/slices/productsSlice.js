@@ -18,6 +18,22 @@ export const getOrderDetails = createAsyncThunk(
     }
 )
 
+export const createProduct = createAsyncThunk(
+    'product/createProduct',
+    async (data, { rejectWithValue }) => {
+        try {
+            const res = await axios.post(
+                apiAgent.createProduct,
+                data,
+                { withCredentials: true }
+            );
+            console.log(res);
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 const productsSlice = createSlice({
     name: 'products/slice',
     initialState: {
@@ -39,6 +55,19 @@ const productsSlice = createSlice({
                 state.totalOrderedProducts = action.payload
             })
             .addCase(getOrderDetails.rejected, (state, action) => {
+                state.loading = false,
+                state.error = action.payload
+            })
+
+
+            .addCase(createProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(createProduct.fulfilled, (state, action) => {
+                state.loading = false,
+                state.totalCreateProducts = action.payload
+            })
+            .addCase(createProduct.rejected, (state, action) => {
                 state.loading = false,
                 state.error = action.payload
             })

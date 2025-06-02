@@ -1,21 +1,18 @@
 import React from 'react'
 import SideBar from '../sideBar/SideBar'
 import TopBar from '../TopBar/TopBar'
-import Demo2 from '../dashboard/Dashboard'
-import Demoo from '../dashboard/Demoo'
 import Dashboard from '../dashboard/Dashboard'
 
-export default function home() {
+export default function Home({ children }) {
   return (
     <>
-      <TopBar/>
+      <TopBar />
       <div className='flex'>
-      <SideBar/>
-      
-      <Dashboard/>
-
+        <SideBar />
+        <div className='flex-1 '>
+          {children}
+        </div>
       </div>
-    
     </>
   )
 }
