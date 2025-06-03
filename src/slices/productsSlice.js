@@ -27,7 +27,6 @@ export const createProduct = createAsyncThunk(
                 data,
                 { withCredentials: true }
             );
-            console.log(res);
             return res.data;
         } catch (error) {
             return rejectWithValue(error);
@@ -69,6 +68,41 @@ export const updateProducts = createAsyncThunk(
     }
 )
 
+export const deleteProduct = createAsyncThunk(
+    'product/deleteProduct',
+    async (productId, { rejectWithValue }) => {
+        try {
+
+            const response = await axios.delete(
+                `${apiAgent.deleteProducts}/${productId}`,
+                { withCredentials: true }
+            );
+
+            console.log('Delete product response:', response);
+            return response
+
+        } catch (error) {
+            console.error('Delete product error:', error)
+            return rejectWithValue(error.response || "Something went wrong");
+        }
+    }
+);
+
+export const getAllCreateProducts = createAsyncThunk(
+    'product/getAllCreateProducts',
+    async (_, { rejectWithValue }) =>{
+        try {
+            const res = await axios.get(
+                apiAgent.getCreateProducts,
+                { withCredentials: true }
+            )
+            return res.data.products
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
 
 const productsSlice = createSlice({
     name: 'products/slice',
@@ -78,7 +112,6 @@ const productsSlice = createSlice({
         isFormOpen: false,
         isEdit: false,
         editId: null,
-        totalCreateProducts: [],
         totalOrderedProducts: [],
         totalMyProducts: [],
     },
@@ -113,7 +146,7 @@ const productsSlice = createSlice({
             })
             .addCase(createProduct.fulfilled, (state, action) => {
                 state.loading = false,
-                    state.totalCreateProducts = action.payload
+                state.totalMyProducts.unshift(action.payload.data); 
             })
             .addCase(createProduct.rejected, (state, action) => {
                 state.loading = false,
@@ -126,7 +159,7 @@ const productsSlice = createSlice({
             })
             .addCase(getMyProducts.fulfilled, (state, action) => {
                 state.loading = false,
-                    state.totalMyProducts = action.payload
+                state.totalMyProducts = action.payload
             })
             .addCase(getMyProducts.rejected, (state, action) => {
                 state.loading = false,
@@ -148,6 +181,35 @@ const productsSlice = createSlice({
             .addCase(updateProducts.rejected, (state, action) => {
                 state.loading = false,
                     state.error = action.payload
+            })
+
+            //deleteProduct
+            .addCase(deleteProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.loading = false
+                const deletedId = action.meta.arg;
+                state.totalMyProducts = state.totalMyProducts.filter(
+                    (product) => product._id !== deletedId
+                );
+            })
+            .addCase(deleteProduct.rejected, (state, action) => {
+                state.loading = false,
+                    state.error = action.payload
+            })
+
+            //getAllCreateProducts
+            .addCase(getAllCreateProducts.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getAllCreateProducts.fulfilled, (state, action) => {
+                state.loading = false
+                state.totalMyProducts = action.payload
+            })
+            .addCase(getAllCreateProducts.rejected, (state, action) => {
+                state.loading = false,
+                state.error = action.payload
             })
 
     }

@@ -5,7 +5,7 @@ import RecentOrders from './RecentOrders';
 
 export default function Dashboard() {
 const dispatch = useDispatch()
-const {totalOrderedProducts}= useSelector(state=>state.product)
+const {totalOrderedProducts,totalMyProducts}= useSelector(state=>state.product)
 
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const {totalOrderedProducts}= useSelector(state=>state.product)
     { label: "Total Orders", quantity: `${totalOrderedProducts.length}`, color: "bg-pink-200" },
     { label: "Pending Orders", quantity: `${pendingOrders.length}`, color: "bg-blue-200" },
     { label: "delivered Orders", quantity: `${deliveredOrders.length}`, color: "bg-teal-200" },
-    { label: "Total Products", quantity: "1,192", color: "bg-indigo-200" },
+    { label: "Total Products", quantity: `${totalMyProducts.length}`, color: "bg-indigo-200" },
   ];
 
   return (

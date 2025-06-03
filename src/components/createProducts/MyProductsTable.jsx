@@ -1,18 +1,41 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setEditId, setIsEdit, setIsFormOpen } from '../../slices/productsSlice';
+import { deleteProduct, setEditId, setIsEdit, setIsFormOpen } from '../../slices/productsSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyProductsTable() {
     const { totalMyProducts } = useSelector(state => state.product);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
 
     const editHandler = (id)=>{
         dispatch(setIsFormOpen());
         dispatch(setIsEdit());
         dispatch(setEditId(id));
-
     }
+
+ const deleteHandler = async (id) => {
+    try {
+        const res = await dispatch(deleteProduct(id));
+
+        if (res.type === "product/deleteProduct/fulfilled") {
+            alert("Product deleted successfully!");
+        } else {
+            alert("Failed to delete product.");
+        }
+    } catch (error) {
+        alert("Something went wrong while deleting the product.");
+    }
+};
+
+const viewHandler = (id)=>{
+    try {
+        navigate(`/admin/create-products/show/${id}`)
+    } catch (error) {
+        alert("something went wrong")
+    }
+}
 
     return (
         <div className="overflow-x-auto max-w-full">
@@ -44,8 +67,15 @@ export default function MyProductsTable() {
                                         className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs cursor-pointer">
                                         Edit
                                     </button>
-                                    <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs cursor-pointer">
+                                    <button 
+                                    onClick={()=>deleteHandler(product._id)}
+                                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs cursor-pointer">
                                         Delete
+                                    </button>
+                                    <button 
+                                    onClick={()=>viewHandler(product._id)}
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs cursor-pointer">
+                                        View
                                     </button>
                                 </td>
                             </tr>

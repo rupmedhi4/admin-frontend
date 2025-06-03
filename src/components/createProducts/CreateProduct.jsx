@@ -36,7 +36,6 @@ export default function CreateProduct() {
             }
 
             dispatch(setIsFormOpen());
-console.log(res);
 
             if (res?.type === "product/createProduct/fulfilled" || res?.type === "product/updateProducts/fulfilled") {
                 alert(isEdit ? "Product updated successfully!" : "Product created successfully!");

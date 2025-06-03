@@ -10,6 +10,8 @@ export const apiAgent = {
   createProduct:`${base_url}/product/create`,
   getMyProducts:`${base_url}/product/get/my-products`,
   updateProducts:`${base_url}/product/updates`,
+  deleteProducts:`${base_url}/product/delete`,
+  getCreateProducts:`${base_url}/product/get/my-products`,
   
 
 };

@@ -9,6 +9,7 @@ import Dashboard from '../components/dashboard/Dashboard';
 import OrderList from '../components/orders/OrderList';
 import ShowSingleOrder from '../components/orders/ShowSingleOrder';
 import CreateProduct from '../components/createProducts/CreateProduct';
+import SingleCreateProduct from '../components/createProducts/SingleCreateProduct';
 
 const routes = [
   {
@@ -73,6 +74,16 @@ const routes = [
       <ProtectedRoute>
         <Home>
           <CreateProduct />
+        </Home>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/admin/create-products/show/:id",
+    element: (
+      <ProtectedRoute>
+        <Home>
+          <SingleCreateProduct/>
         </Home>
       </ProtectedRoute>
     )

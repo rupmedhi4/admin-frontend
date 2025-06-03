@@ -9,7 +9,7 @@ export default function ShowProducts() {
 
   useEffect(() => {
     dispatch(getMyProducts());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="p-6">
