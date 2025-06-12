@@ -41,9 +41,9 @@ export default function OrderList() {
             <tbody>
               {totalOrderedProducts?.length > 0 ? (
                 totalOrderedProducts.map((order, index) => (
-                  <tr key={order._id} className="border-b border-gray-700 hover:bg-[#1F2937]">
+                  <tr key={order._id || index} className="border-b border-gray-700 hover:bg-[#1F2937]">
                     <td className="p-3">{index + 1}</td>
-                    <td className="p-3">{order.productId.name || "XYZ"}</td>
+                    <td className="p-3">{order.productId?.name || "XYZ"}</td>
                     <td className="p-3 font-semibold">${order.productId?.price || "0.00"}</td>
                     <td className="p-3">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[order.status]}`}>{order.status}</span>

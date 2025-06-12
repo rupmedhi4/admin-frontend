@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../../slices/authSlice';
+import { toast } from 'react-toastify';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ export default function Signup() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.auth)
+  const { loading, error } = useSelector((state) => state.auth)
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -26,7 +27,7 @@ export default function Signup() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -38,8 +39,9 @@ export default function Signup() {
         confirmPassword: formData.confirmPassword,
       };
       const res = await dispatch(signupUser(userData));
+
       if (res.type === "auth/signupUser/fulfilled") {
-        alert("User created successfully");
+        toast.success("User created successfully");
         setFormData({
           name: '',
           email: '',
@@ -48,14 +50,15 @@ export default function Signup() {
         })
         navigate("/");
       } else {
-      alert("Internal server error please try again")
+        toast.error(error)
       }
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Try again...");
+    } catch (err) {
+      const errorMessage = res.payload?.data?.message || "Signup failed";
+      toast.error(errorMessage);
     }
   };
 
+  console.log(error);
 
   return (
     <div

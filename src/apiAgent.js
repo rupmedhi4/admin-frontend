@@ -6,12 +6,11 @@ export const apiAgent = {
   logout : `${base_url}/auth/user/logout`,
   createProduct : `${base_url}/product/create`,
   getOrderedProducts : `${base_url}/client/order/get`,
-  updateStatus:`${base_url}/client/order/update/status`,
+  updateStatus:`${base_url}/product/update/status`,
   createProduct:`${base_url}/product/create`,
   getMyProducts:`${base_url}/product/get/my-products`,
   updateProducts:`${base_url}/product/updates`,
   deleteProducts:`${base_url}/product/delete`,
   getCreateProducts:`${base_url}/product/get/my-products`,
-  
 
 };

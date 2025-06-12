@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 export default function PublicRoute({ children }) {
-    const isLoggedIn = Cookies.get("jwt"); 
+    const isLoggedIn = Cookies.get("adminJwt"); 
 
     return isLoggedIn ? <Navigate to="/" /> : children
 }
