@@ -16,6 +16,21 @@ export default function CreateProduct() {
     const dispatch = useDispatch()
     const { loading, isFormOpen, isEdit, editId, totalMyProducts } = useSelector(state => state.product)
 
+    const predefinedCategories = [
+        'Fruits & Vegetables',
+        'Dairy, Bread & Eggs',
+        'Snacks & Namkeen',
+        'Beverages',
+        'Staples',
+        'Personal Care',
+        'Home Cleaning',
+        'Baby Care',
+        'Pet Care',
+        'Frozen Food',
+        'Organic Products',
+        'Other'
+    ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct((prev) => ({ ...prev, [name]: value }));
@@ -33,6 +48,8 @@ export default function CreateProduct() {
                 dispatch(setEditId(null));
             } else {
                 res = await dispatch(createProduct(product));
+                console.log(res);
+                
             }
 
             dispatch(setIsFormOpen());
@@ -143,15 +160,20 @@ export default function CreateProduct() {
                                     <div className='flex space-x-9'>
                                         <div>
                                             <label className="text-sm font-medium block">Category</label>
-                                            <input
-                                                type="text"
+                                            <select
                                                 name="category"
                                                 value={product.category}
                                                 onChange={handleChange}
                                                 required
                                                 className="w-85 mt-1 p-2 border border-gray-300 rounded text-sm"
-                                            />
+                                            >
+                                                <option value="">Select Category</option>
+                                                {predefinedCategories.map((cat, index) => (
+                                                    <option key={index} value={cat}>{cat}</option>
+                                                ))}
+                                            </select>
                                         </div>
+
                                         <div>
                                             <label className="text-sm font-medium block">Quantity</label>
                                             <input
