@@ -5,7 +5,7 @@ export const apiAgent = {
   login: `${base_url}/auth/user/login`,
   logout : `${base_url}/auth/user/logout`,
   createProduct : `${base_url}/product/create`,
-  getOrderedProducts : `${base_url}/client/order/get`,
+  getOrderedProducts : `${base_url}/product/all`,
   updateStatus:`${base_url}/product/update/status`,
   createProduct:`${base_url}/product/create`,
   getMyProducts:`${base_url}/product/get/my-products`,
