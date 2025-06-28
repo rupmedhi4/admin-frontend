@@ -22,12 +22,12 @@ export const signupUser = createAsyncThunk(
         }
       );
 
-      Cookies.set('adminJwt', response.data.token, {
-        path: '/',
-        secure: true,
-        sameSite: 'None',
-        expires: 14,
-      });
+      // Cookies.set('adminJwt', response.data.token, {
+      //   path: '/',
+      //   secure: true,
+      //   sameSite: 'None',
+      //   expires: 14,
+      // });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response);
@@ -53,12 +53,12 @@ export const loginUser = createAsyncThunk(
         }
       );
 
-      Cookies.set('adminJwt', res.data.token, {
-        path: '/',
-        secure: true,
-        sameSite: 'None',
-        expires: 14,
-      });
+      // Cookies.set('adminJwt', res.data.token, {
+      //   path: '/',
+      //   secure: true,
+      //   sameSite: 'None',
+      //   expires: 14,
+      // });
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response);
@@ -77,7 +77,7 @@ export const logoutUser = createAsyncThunk(
           withCredentials: true,
         }
       );
-      Cookies.remove('adminjwt')
+      //Cookies.remove('adminjwt')
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response);
