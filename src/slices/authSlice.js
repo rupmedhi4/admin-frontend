@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { apiAgent } from '../apiAgent';
+import Cookies from 'js-cookie';
 
 export const signupUser = createAsyncThunk(
   'auth/signupUser',
@@ -21,6 +22,12 @@ export const signupUser = createAsyncThunk(
         }
       );
 
+      Cookies.set('adminJwt', response.data.token, {
+        path: '/',
+        secure: true,
+        sameSite: 'None',
+        expires: 14,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response);
@@ -45,6 +52,13 @@ export const loginUser = createAsyncThunk(
           },
         }
       );
+
+      Cookies.set('adminJwt', res.data.token, {
+        path: '/',
+        secure: true,
+        sameSite: 'None',
+        expires: 14,
+      });
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response);

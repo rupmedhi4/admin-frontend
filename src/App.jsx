@@ -7,18 +7,20 @@ import { getOrderDetails } from './slices/productsSlice';
 
 
 function App() {
- const dispatch = useDispatch()
-   useEffect(() => {
-     const fetchOrderedItems = async () => {
-       try {
-         await dispatch(getOrderDetails());
-       } catch (err) {
-         console.error('Error fetching order details:', err);
-       }
-     };
-     fetchOrderedItems();
-   }, []); 
   
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchOrderedItems = async () => {
+      try {
+        await dispatch(getOrderDetails());
+      } catch (err) {
+        console.error('Error fetching order details:', err);
+      }
+    };
+    fetchOrderedItems();
+  }, []);
+
   return (
     <Router>
       <Routes>
