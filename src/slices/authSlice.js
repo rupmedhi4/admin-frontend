@@ -77,6 +77,7 @@ export const logoutUser = createAsyncThunk(
           withCredentials: true,
         }
       );
+      Cookies.remove('adminjwt')
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response);
